@@ -40,7 +40,7 @@ orders = []
 for _ in range(N_ORDERS):
     random_ts = start + timedelta(minutes=random.randint(0, 120*24*60))
     random_status = random.choices(["completed", "refunded", "cancelled"], weights=[0.9, 0.05, 0.05])[0]
-    random_price = round(random.uniform(5, 400), 2),
+    random_price = round(random.uniform(5, 400), 2)
     orders.append({
         "order_id": str(uuid.uuid4()),
         "customer_id": random.choice(customers)["customer_id"],

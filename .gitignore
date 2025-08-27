@@ -1,2 +1,39 @@
+.*env
 .env
-env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+.env
+
+# Spark / Hadoop
+.derby/
+.metastore_db/
+spark-warehouse/
+*.crc
+*.eventlog
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files
+data/raw/*.csv
+data/warehouse/*.parquet
+
+# Logs
+*.log
+
+# VSCode / IDE
+.vscode/
+.idea/
+*.iml
+
+# Docker
+pgdata/
+
+.DS_Store
+*/.DS_Store
