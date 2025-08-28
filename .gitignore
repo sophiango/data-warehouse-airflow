@@ -1,39 +1,64 @@
-.*env
-.env
-
-# Python
+# ---- Python ----
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg
+*.egg-info/
+.eggs/
 *.pyo
 *.pyd
-*.egg-info/
-.venv/
-.env
+*.pkl
+*.db
+*.sqlite
+*.log
+*.tmp
 
-# Spark / Hadoop
-.derby/
-.metastore_db/
+# Virtual environments
+.venv/
+.env/
+.airflowenv/
+.dwaenv/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# ---- Airflow ----
+# SQLite DB and logs
+airflow/airflow.db
+airflow/airflow.sqlite
+airflow/unittests.cfg
+airflow/logs/
+airflow/tmp/
+airflow/.airflowcelerydb/
+airflow/airflow-webserver.pid
+airflow/airflow-webserver.out
+airflow/airflow-webserver.err
+airflow/standalone_admin_password.txt
+
+# ---- Spark ----
+metastore_db/
+derby.log
 spark-warehouse/
 *.crc
 *.eventlog
+*.snappy
+*.parquet
+*.avro
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Data files
-data/raw/*.csv
-data/warehouse/*.parquet
-
-# Logs
-*.log
-
-# VSCode / IDE
-.vscode/
-.idea/
-*.iml
-
-# Docker
+# ---- Postgres ----
 pgdata/
+*.sql~
+*.sql-journal
 
+# ---- Docker ----
+*.pid
+*.sock
+*.log
+docker-compose.override.yml
+.docker/
+
+# ---- OS-specific ----
 .DS_Store
-*/.DS_Store
+Thumbs.db
+
+# ---env---
+.*env

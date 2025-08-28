@@ -1,39 +1,73 @@
-# 🏗️ Data Warehouse & Analytics Pipeline
+# Data Warehouse Pipeline with Airflow, Spark & Postgres
 
-This project is a **portfolio-ready data engineering pipeline** that simulates a small-scale e-commerce data warehouse. It demonstrates how to ingest raw data, transform it into analytics-ready schemas, and query it using **SQL, PySpark, and Airflow orchestration**.
+This project demonstrates a **modern data engineering pipeline** built with:
 
----
+- **Airflow** for orchestration  
+- **Postgres** for staging and warehouse layers  
+- **Spark** for batch KPI analytics  
+- **Python** for ETL jobs  
 
-## 🚀 Features
-
-- **Synthetic data generation**: Customers and orders created with Python & Faker
-- **Postgres staging schema**: Raw CSVs loaded into `staging.customers` and `staging.orders`
-- **Warehouse star schema**:
-  - `warehouse.dim_customer` — customer dimension (cleaned, deduplicated)
-  - `warehouse.fact_orders` — fact table with order events, revenue metrics
-- **ETL scripts**:
-  - Python loader (`etl/load_to_postgres.py`) with SQLAlchemy & Pandas
-  - SQL transformations to build star schema
-- **PySpark analytics**:
-  - KPIs: daily revenue, orders by region, top customer LTV
-  - Data cleaning: handle `NULL` regions, enforce decimal precision
-- **Airflow DAG (coming soon)**: Orchestrates the full pipeline
-- **Dashboards (optional)**: Grafana/Metabase to visualize KPIs
+It’s designed as a hands-on portfolio project to showcase **data engineering fundamentals**: ingestion, transformation, orchestration, and analytics.
 
 ---
 
-## 🛠️ Tech Stack
+## 📸 Demo
 
-- **Python** (Pandas, SQLAlchemy, Faker)
-- **Postgres** (Dockerized)
-- **PySpark** (batch analytics, JDBC to Postgres)
-- **Airflow** (workflow orchestration, coming in next phase)
-- **Grafana/Metabase** (optional visualization)
+Here’s a screenshot of the pipeline running successfully in **Airflow** (`de_pipeline` DAG):
 
+![Airflow DAG Screenshot](./docs/airflow.png)  
+_Screenshot: Successful DAG run in Airflow_
 
 ---
 
-## ▶️ Getting Started
+## 🏗️ Pipeline Overview
+
+1. **Generate Data**  
+   Python scripts generate synthetic `customers` and `orders` datasets (using Faker).
+
+2. **Load to Staging (Postgres)**  
+   CSVs are loaded into `staging.customers` and `staging.orders` tables.
+
+3. **Build Warehouse**  
+   SQL transformations create a classic star schema:  
+   - Dimension: `warehouse.dim_customer`  
+   - Fact: `warehouse.fact_orders`  
+
+4. **Analytics with Spark**  
+   Spark reads the warehouse tables via JDBC and produces KPIs:
+   - Revenue by day  
+   - Orders by region  
+   - Top product categories  
+
+---
+
+## ⚙️ Tech Stack
+
+- **Airflow 2.x** (DAG orchestration)  
+- **Postgres** (staging + warehouse)  
+- **PySpark 3.5.x** (batch analytics, JDBC integration)  
+- **Docker Compose** (Postgres container)  
+- **Python 3.9** (ETL scripts)  
+
+---
+
+## 🚀 Running the Project in Airflow
+
+1. **Start Postgres**  
+```bash
+   docker compose up -d postgres
+```
+
+2. **Run Airflow**
+```bash
+airflow standalone
+```
+
+3. **Trigger the DAG**
+- Go to http://localhost:8080
+- Enable and trigger de_pipeline
+
+## ▶️ Getting Started Locally
 
 ### 1. Setup environment
 ```bash
@@ -66,11 +100,6 @@ Download postgres jar and replace SPARK_HOME with full path of installed spark
 ```bash
 $SPARK_HOME/bin/spark-submit --jars ~/spark_jars/postgresql-42.7.4.jar spark/kpi.py
 ```
----
-
-## 📊 Example KPIs
-Revenue by day
-Orders by region (with nulls handled → “Unknown”)
 ---
 ## 🎓 Learning Outcomes
 
